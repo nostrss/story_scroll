@@ -1,0 +1,7 @@
+{
+  "name": "story_scroll",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
