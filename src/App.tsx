@@ -39,48 +39,51 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import JoinContainer from './pages/Join/join.container';
 import Header from './components/Layout/header';
+import { auth } from './firebase';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter basename={process.env.PUBLIC_URL}>
-      <Header />
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path='/join'>
-            <JoinContainer />
-          </Route>
-          <Route exact path='/tab1'>
-            <Tab1 />
-          </Route>
-          <Route exact path='/tab2'>
-            <Tab2 />
-          </Route>
-          <Route path='/tab3'>
-            <Tab3 />
-          </Route>
-          <Route exact path='/'>
-            <Redirect to='/tab1' />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot='bottom'>
-          <IonTabButton tab='tab1' href='/tab1'>
-            <IonIcon icon={homeOutline} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab='tab2' href='/tab2'>
-            <IonIcon icon={addCircleOutline} />
-            <IonLabel>Write</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab='tab3' href='/tab3'>
-            <IonIcon icon={personCircleOutline} />
-            <IonLabel>My</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
-
+function App() {
+  console.log(auth);
+  return (
+    <IonApp>
+      <IonReactRouter basename={process.env.PUBLIC_URL}>
+        <Header />
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path='/join'>
+              <JoinContainer />
+            </Route>
+            <Route exact path='/tab1'>
+              <Tab1 />
+            </Route>
+            <Route exact path='/tab2'>
+              <Tab2 />
+            </Route>
+            <Route path='/tab3'>
+              <Tab3 />
+            </Route>
+            <Route exact path='/'>
+              <Redirect to='/tab1' />
+            </Route>
+          </IonRouterOutlet>
+          <IonTabBar slot='bottom'>
+            <IonTabButton tab='tab1' href='/tab1'>
+              <IonIcon icon={homeOutline} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab='tab2' href='/tab2'>
+              <IonIcon icon={addCircleOutline} />
+              <IonLabel>Write</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab='tab3' href='/tab3'>
+              <IonIcon icon={personCircleOutline} />
+              <IonLabel>My</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+}
 export default App;
