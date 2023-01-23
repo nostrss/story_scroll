@@ -10,6 +10,7 @@ import {
   IonLabel,
   IonList,
   IonButton,
+  IonNote,
 } from '@ionic/react';
 
 const CustomBtn = styled(IonButton)`
@@ -23,7 +24,10 @@ export default function JoinPresenter({
   onChangeUserName,
   onChangeEmail,
   onChangePassword,
-  onSubmitJoinData,
+  onSubmitCreateUser,
+  isUserNameValid,
+  isEmailValid,
+  isPasswordlValid,
 }: any) {
   return (
     <IonPage>
@@ -33,37 +37,64 @@ export default function JoinPresenter({
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <form action='' onSubmit={onSubmitJoinData}>
+        <form action='' onSubmit={onSubmitCreateUser}>
           <IonList>
-            <IonItem>
+            <IonItem
+              className={`${isUserNameValid && 'ion-valid'} ${
+                isUserNameValid === false && 'ion-invalid'
+              }`}
+            >
               <IonLabel>Username : </IonLabel>
               <IonInput
                 onIonChange={onChangeUserName}
-                placeholder='Username'
+                placeholder='Max 20 characters'
                 type='text'
                 value={userName}
+                maxlength={20}
+                required
               />
+              <IonNote slot='error'>Max 20 characters</IonNote>
             </IonItem>
-            <IonItem>
+            <IonItem
+              className={`${isEmailValid && 'ion-valid'} ${
+                isEmailValid === false && 'ion-invalid'
+              }`}
+            >
               <IonLabel>Email : </IonLabel>
               <IonInput
                 onIonChange={onChangeEmail}
-                placeholder='Email'
+                placeholder='Enter a valid email'
                 type='email'
                 value={email}
+                required
               />
+              <IonNote slot='error'>Invalid email</IonNote>
             </IonItem>
-            <IonItem>
+            <IonItem
+              className={`${isPasswordlValid && 'ion-valid'} ${
+                isPasswordlValid === false && 'ion-invalid'
+              }`}
+            >
               <IonLabel>Password : </IonLabel>
               <IonInput
                 onIonChange={onChangePassword}
-                placeholder='Password'
+                placeholder='Min 8 characters, max 20 characters'
                 type='password'
                 value={password}
+                maxlength={20}
+                required
               />
+              <IonNote slot='error'>
+                Min 8 characters, max 20 characters
+              </IonNote>
             </IonItem>
           </IonList>
-          <CustomBtn type='submit'>Join</CustomBtn>
+          <CustomBtn
+            type='submit'
+            disabled={!(isUserNameValid && isEmailValid && isPasswordlValid)}
+          >
+            Join
+          </CustomBtn>
         </form>
       </IonContent>
     </IonPage>
