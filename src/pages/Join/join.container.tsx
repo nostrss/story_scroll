@@ -20,7 +20,7 @@ export default function JoinContainer() {
 
     if (value === '') return;
 
-    validateStringLength(value, 0, 20)
+    validateStringLength(value, 1, 20)
       ? setIsUserNameValid(true)
       : setIsUserNameValid(false);
   };
@@ -55,7 +55,7 @@ export default function JoinContainer() {
     min: number,
     max: number
   ) => {
-    return inputString.length > min && inputString.length < max;
+    return inputString.length > min - 1 && inputString.length < max + 1;
   };
 
   const onChangePassword = ({ detail }: { detail: { value: string } }) => {
