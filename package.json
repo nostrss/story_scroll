@@ -10,6 +10,7 @@
     "@capacitor/status-bar": "4.1.1",
     "@egjs/react-infinitegrid": "^4.7.1",
     "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.9",
@@ -50,7 +51,7 @@
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "cp build/index.html build/404.html && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

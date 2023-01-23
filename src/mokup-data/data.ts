@@ -1,7 +1,8 @@
 export const ListData = [
   {
     name: 'John',
-    image: 'assets/image/image01.jpg',
+    image:
+      'https://github.com/nostrss/story_scroll/blob/main/public/assets/image/image01.jpg',
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus',
     subtitle:
@@ -9,7 +10,8 @@ export const ListData = [
   },
   {
     name: 'kim',
-    image: 'assets/image/image02.jpg',
+    image:
+      'https://github.com/nostrss/story_scroll/blob/main/public/assets/image/image02.jpg',
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus',
     subtitle:
@@ -17,7 +19,8 @@ export const ListData = [
   },
   {
     name: 'cho',
-    image: 'assets/image/image03.jpg',
+    image:
+      'https://github.com/nostrss/story_scroll/blob/main/public/assets/image/image03.jpg',
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus',
     subtitle:
@@ -25,7 +28,8 @@ export const ListData = [
   },
   {
     name: 'jin',
-    image: 'assets/image/image04.jpg',
+    image:
+      'https://github.com/nostrss/story_scroll/blob/main/public/assets/image/image04.jpg',
     title:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus',
     subtitle:
