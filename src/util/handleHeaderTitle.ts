@@ -4,10 +4,12 @@ export const handleHeaderTitle = (pathname: string) => {
       return 'Home';
     case '/tab2':
       return 'Write';
-    case '/tab3':
+    case '/my/:userId':
       return 'My';
-    case '/join':
-      return 'Join';
+    case '/signup':
+      return 'Sign Up';
+    case '/login':
+      return 'Log In';
     default:
       return 'Home';
   }
