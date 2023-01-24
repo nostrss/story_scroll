@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import {
   IonContent,
   IonHeader,
@@ -13,21 +12,18 @@ import {
   IonNote,
 } from '@ionic/react';
 
-const CustomBtn = styled(IonButton)`
-  width: 100%;
-`;
-
-export default function JoinPresenter({
+export default function SignUpUI({
   userName,
   email,
   password,
   onChangeUserName,
   onChangeEmail,
   onChangePassword,
-  onSubmitCreateUser,
   isUserNameValid,
   isEmailValid,
   isPasswordlValid,
+  isSignUp,
+  onSubmitAuth,
 }: any) {
   return (
     <IonPage>
@@ -37,24 +33,26 @@ export default function JoinPresenter({
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <form action='' onSubmit={onSubmitCreateUser}>
+        <form action='' onSubmit={onSubmitAuth}>
           <IonList>
-            <IonItem
-              className={`${isUserNameValid && 'ion-valid'} ${
-                isUserNameValid === false && 'ion-invalid'
-              }`}
-            >
-              <IonLabel>Username : </IonLabel>
-              <IonInput
-                onIonChange={onChangeUserName}
-                placeholder='Max 20 characters'
-                type='text'
-                value={userName}
-                maxlength={20}
-                required
-              />
-              <IonNote slot='error'>Max 20 characters</IonNote>
-            </IonItem>
+            {isSignUp && (
+              <IonItem
+                className={`${isUserNameValid && 'ion-valid'} ${
+                  isUserNameValid === false && 'ion-invalid'
+                }`}
+              >
+                <IonLabel>Username : </IonLabel>
+                <IonInput
+                  onIonChange={onChangeUserName}
+                  placeholder='Max 20 characters'
+                  type='text'
+                  value={userName}
+                  maxlength={20}
+                  required
+                />
+                <IonNote slot='error'>Max 20 characters</IonNote>
+              </IonItem>
+            )}
             <IonItem
               className={`${isEmailValid && 'ion-valid'} ${
                 isEmailValid === false && 'ion-invalid'
@@ -89,12 +87,17 @@ export default function JoinPresenter({
               </IonNote>
             </IonItem>
           </IonList>
-          <CustomBtn
+          <IonButton
+            expand='block'
             type='submit'
-            disabled={!(isUserNameValid && isEmailValid && isPasswordlValid)}
+            disabled={
+              isSignUp
+                ? !(isUserNameValid && isEmailValid && isPasswordlValid)
+                : !(isEmailValid && isPasswordlValid)
+            }
           >
-            Join
-          </CustomBtn>
+            {isSignUp ? 'Sign Up' : 'Log In'}
+          </IonButton>
         </form>
       </IonContent>
     </IonPage>

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { handleHeaderTitle } from '../../util/handleHeaderTitle';
 
 export default function Header() {
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <IonHeader>

@@ -1,9 +1,20 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 import { useState } from 'react';
 import { auth } from '../../firebase';
-import JoinPresenter from './join.presenter';
+import { validateEmail, validateStringLength } from '../../util/validate';
+import { useHistory, useLocation } from 'react-router-dom';
+import SignUpUI from './signup.presenter';
 
-export default function JoinContainer() {
+export default function SignupContainer() {
+  const history = useHistory();
+  const { pathname } = useLocation();
+  let isSignUp = pathname === '/signup';
+  // const auth = getAuth();
+
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,18 +36,6 @@ export default function JoinContainer() {
       : setIsUserNameValid(false);
   };
 
-  /**
-   * email 유효성 검사 함수
-   * @param email
-   * @returns
-   */
-
-  const validateEmail = (email: string) => {
-    return email.match(
-      /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-    );
-  };
-
   const onChangeEmail = ({ detail }: { detail: { value: string } }) => {
     setEmail(detail.value);
 
@@ -48,14 +47,6 @@ export default function JoinContainer() {
     validateEmail(value) !== null
       ? setIsEmailValid(true)
       : setIsEmailValid(false);
-  };
-
-  const validateStringLength = (
-    inputString: string,
-    min: number,
-    max: number
-  ) => {
-    return inputString.length > min - 1 && inputString.length < max + 1;
   };
 
   const onChangePassword = ({ detail }: { detail: { value: string } }) => {
@@ -71,22 +62,46 @@ export default function JoinContainer() {
       : setIsPasswordValid(false);
   };
 
-  const onSubmitCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmitCreateUser = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+
+      if (auth.currentUser !== null) {
+        await updateProfile(auth.currentUser, {
+          displayName: userName,
+        });
+        setUserName('');
+        setEmail('');
+        setPassword('');
+        history.push('/tab1');
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  const onSubmitLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       setEmail('');
       setPassword('');
+      history.push('/tab1');
     } catch (error) {
-      if (error instanceof Error) {
-        const errorMessage = error.message;
-        alert(errorMessage);
-      }
+      console.warn(error);
+    }
+  };
+
+  const onSubmitAuth = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isSignUp) {
+      onSubmitCreateUser();
+    } else {
+      onSubmitLogin();
     }
   };
 
   return (
-    <JoinPresenter
+    <SignUpUI
       userName={userName}
       email={email}
       password={password}
@@ -97,6 +112,8 @@ export default function JoinContainer() {
       isUserNameValid={isUserNameValid}
       isEmailValid={isEmailValid}
       isPasswordlValid={isPasswordlValid}
+      isSignUp={isSignUp}
+      onSubmitAuth={onSubmitAuth}
     />
   );
 }
