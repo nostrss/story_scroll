@@ -60,10 +60,10 @@ export default function MyContainer() {
           </>
         ) : (
           <>
-            <IonButton expand='block' href='/signup'>
+            <IonButton expand='block' href='/story_scroll/signup'>
               Sign up with email
             </IonButton>
-            <IonButton fill='outline' expand='block' href='/login'>
+            <IonButton fill='outline' expand='block' href='/story_scroll/login'>
               Log In with email
             </IonButton>
           </>

@@ -10,6 +10,8 @@ export const handleHeaderTitle = (pathname: string) => {
       return 'Sign Up';
     case '/login':
       return 'Log In';
+    case '/addpost':
+      return 'Add Post';
     default:
       return 'Home';
   }

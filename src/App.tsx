@@ -17,7 +17,6 @@ import {
   homeOutline,
 } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -46,6 +45,7 @@ import { useDispatch } from 'react-redux';
 import { getUserData } from './redux/slice';
 // import LoginContainer from './pages/Login/login.container';
 import SignupContainer from './pages/Signup/signup.container';
+import AddPostContainer from './pages/AddPost/addpost.container';
 setupIonicReact();
 
 function App() {
@@ -104,10 +104,10 @@ function App() {
             <Route exact path='/tab1'>
               <Tab1 />
             </Route>
-            <Route exact path='/tab2'>
-              <Tab2 />
+            <Route exact path='/addpost'>
+              <AddPostContainer />
             </Route>
-            <Route path='/my/:userId'>
+            <Route path='/my'>
               <MyContainer />
             </Route>
             <Route exact path='/'>
@@ -119,9 +119,9 @@ function App() {
               <IonIcon icon={homeOutline} />
               <IonLabel>Home</IonLabel>
             </IonTabButton>
-            <IonTabButton tab='tab2' href='/tab2'>
+            <IonTabButton tab='addpost' href='/addpost'>
               <IonIcon icon={addCircleOutline} />
-              <IonLabel>Write</IonLabel>
+              <IonLabel>Add</IonLabel>
             </IonTabButton>
             <IonTabButton tab='my' href='/my/:userId'>
               <IonIcon icon={personCircleOutline} />
