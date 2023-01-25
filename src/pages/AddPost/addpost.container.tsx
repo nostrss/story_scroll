@@ -1,49 +1,47 @@
+import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useMemo, useRef, useState } from 'react';
-import { storage } from '../../firebase';
+import { firebaseDb, storage } from '../../firebase';
 import AddPostUI from './addpost.presenter';
 
 export default function AddPostContainer() {
-  const [attachment, setAttachment] = useState('');
-  const [file, setFile] = useState<File>();
   const [isProgress, setIsProgress] = useState(0);
-  const [isFileUrl, setIsFileUrl] = useState('');
+  const [showLoading, setShowLoading] = useState(false);
+
   const [isText, setIsText] = useState('');
   const quillRef = useRef();
-  let attachmentUrl = '';
 
-  const onFileChange = (event: any) => {
-    const {
-      target: { files },
-    } = event;
-    const formData = new FormData();
-    formData.append('file', files[0]);
-    setFile(formData.get('file') as File);
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
 
-    const reader = new FileReader();
-    reader.onloadend = (finishedEvent: any) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setAttachment(result);
-    };
-    reader.readAsDataURL(formData.get('file') as File);
-  };
+    // @ts-ignore
+    const range = quillRef.current?.getEditor().getSelection()?.index;
 
-  const onClickUpload = async () => {
-    if (file) {
+    // @ts-ignore
+    let quill = quillRef.current?.getEditor();
+
+    input.onchange = async () => {
+      if (input.files === null) return;
+
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+
       const storageRef = ref(storage, file.name);
-      // await uploadBytes(storageRef, file).then((snapshot) => {
-      //   console.log('Uploaded a blob or file!');
-      // });
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      const uploadTask = uploadBytesResumable(
+        storageRef,
+        formData.get('file') as File
+      );
 
       await uploadTask.on(
         'state_changed',
         (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress = snapshot.bytesTransferred / snapshot.totalBytes;
           setIsProgress(progress);
+          setShowLoading(true);
           switch (snapshot.state) {
             case 'paused':
               console.log('Upload is paused');
@@ -55,49 +53,18 @@ export default function AddPostContainer() {
         },
         (error) => {
           // Handle unsuccessful uploads
+          console.error(error);
         },
         async () => {
           // Handle successful uploads on complete
+
           await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setIsFileUrl(downloadURL);
-            console.log('File available at', downloadURL);
+            quill?.insertEmbed(range, 'image', downloadURL);
           });
+          setIsProgress(0);
+          setShowLoading(false);
         }
       );
-    }
-  };
-
-  const imageHandler = () => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    // how to fix getEidtor type error
-    // @ts-ignore
-    const range = quillRef.current?.getEditor().getSelection()?.index;
-
-    // @ts-ignore
-    let quill = quillRef.current?.getEditor();
-
-    input.onchange = () => {
-      if (input.files === null) return;
-
-      const file = input.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
-      setFile(formData.get('file') as File);
-
-      const reader = new FileReader();
-      reader.onloadend = (finishedEvent: any) => {
-        const {
-          currentTarget: { result },
-        } = finishedEvent;
-        setAttachment(result);
-        attachmentUrl = result;
-        quill?.insertEmbed(range, 'image', attachmentUrl);
-      };
-      reader.readAsDataURL(formData.get('file') as File);
     };
   };
 
@@ -126,17 +93,23 @@ export default function AddPostContainer() {
     'image',
   ];
 
+  const onClickSave = async () => {
+    await setDoc(doc(firebaseDb, 'posts', 'post'), {
+      text: isText,
+    });
+  };
+
   return (
     <AddPostUI
-      attachment={attachment}
       isProgress={isProgress}
-      onFileChange={onFileChange}
-      onClickUpload={onClickUpload}
       isText={isText}
       setIsText={setIsText}
       modules={modules}
       formats={formats}
       quillRef={quillRef}
+      showLoading={showLoading}
+      setShowLoading={setShowLoading}
+      onClickSave={onClickSave}
     />
   );
 }

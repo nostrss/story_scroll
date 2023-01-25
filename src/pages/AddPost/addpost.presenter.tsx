@@ -1,52 +1,49 @@
 import {
   IonContent,
   IonHeader,
-  IonItem,
   IonPage,
   IonTitle,
   IonToolbar,
+  IonProgressBar,
+  IonLoading,
+  IonButtons,
+  IonButton,
+  IonBackButton,
 } from '@ionic/react';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 export default function AddPostUI({
-  attachment,
   isProgress,
-  onFileChange,
-  onClickUpload,
   isText,
   setIsText,
   modules,
   formats,
   quillRef,
+  showLoading,
+  onClickSave,
 }: any) {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle></IonTitle>
+          <IonButtons slot='start'>
+            <IonBackButton defaultHref='/'></IonBackButton>
+          </IonButtons>
+          <IonTitle>Add Post</IonTitle>
+          <IonButtons slot='end'>
+            <IonButton onClick={onClickSave}>Save</IonButton>
+          </IonButtons>
         </IonToolbar>
+        {isProgress > 0 && <IonProgressBar value={isProgress} />}
       </IonHeader>
       <IonContent>
-        <IonItem>
-          <label htmlFor='upload'>업로드</label>
-          <input
-            id={'upload'}
-            type='file'
-            accept='image/*'
-            onChange={onFileChange}
-            style={{ display: 'none' }}
-          />
-          {attachment && (
-            <div>
-              <img src={attachment} width='50px' height='50px' alt='' />
-              {/* <button onClick={onClearAttachment}>Clear</button> */}
-            </div>
-          )}
-        </IonItem>
-        <button onClick={onClickUpload}>Upload</button>
-        {isProgress > 0 && isProgress}
+        <IonLoading
+          isOpen={showLoading}
+          message={'Uploading...'}
+          duration={5000}
+        />
         <ReactQuill
           theme='snow'
           value={isText}
