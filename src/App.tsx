@@ -52,6 +52,7 @@ function App() {
   const auth = getAuth();
   const [present] = useIonToast();
   const dispatch = useDispatch();
+  // const { pathname } = useLocation();
 
   const presentToast = (message: string) => {
     present({
