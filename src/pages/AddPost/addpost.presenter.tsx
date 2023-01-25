@@ -45,12 +45,14 @@ export default function AddPostUI({
           duration={5000}
         />
         <ReactQuill
+          style={{ height: '100%' }}
           theme='snow'
           value={isText}
           onChange={setIsText}
           modules={modules}
           formats={formats}
           ref={quillRef}
+          placeholder='Write something...'
         />
       </IonContent>
     </IonPage>
