@@ -1,3 +1,4 @@
+import { useIonAlert } from '@ionic/react';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useMemo, useRef, useState } from 'react';
@@ -10,6 +11,8 @@ export default function AddPostContainer() {
 
   const [isText, setIsText] = useState('');
   const quillRef = useRef();
+
+  const [presentAlert] = useIonAlert();
 
   const imageHandler = () => {
     const input = document.createElement('input');
@@ -94,6 +97,14 @@ export default function AddPostContainer() {
   ];
 
   const onClickSave = async () => {
+    if (isText === '' || isText === '<p><br></p>') {
+      presentAlert({
+        header: 'No Text',
+        message: 'Please write something.',
+        buttons: ['OK'],
+      });
+      return;
+    }
     await setDoc(doc(firebaseDb, 'posts', 'post'), {
       text: isText,
     });
