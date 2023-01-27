@@ -8,12 +8,13 @@ import { auth } from '../../firebase';
 import { validateEmail, validateStringLength } from '../../util/validate';
 import { useHistory, useLocation } from 'react-router-dom';
 import SignUpUI from './signup.presenter';
+import { useIonAlert } from '@ionic/react';
 
 export default function SignupContainer() {
   const history = useHistory();
   const { pathname } = useLocation();
   let isSignUp = pathname === '/signup';
-  // const auth = getAuth();
+  const [presentAlert] = useIonAlert();
 
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -76,7 +77,13 @@ export default function SignupContainer() {
         history.push('/tab1');
       }
     } catch (error) {
-      console.warn(error);
+      if (error instanceof Error) {
+        presentAlert({
+          header: 'Oops!',
+          message: error.message,
+          buttons: ['OK'],
+        });
+      }
     }
   };
 
@@ -87,7 +94,13 @@ export default function SignupContainer() {
       setPassword('');
       history.push('/tab1');
     } catch (error) {
-      console.warn(error);
+      if (error instanceof Error) {
+        presentAlert({
+          header: 'Oops!',
+          message: error.message,
+          buttons: ['OK'],
+        });
+      }
     }
   };
 

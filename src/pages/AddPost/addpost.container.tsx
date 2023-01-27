@@ -1,5 +1,5 @@
 import { useIonAlert } from '@ionic/react';
-import { doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useMemo, useRef, useState } from 'react';
 import { firebaseDb, storage } from '../../firebase';
@@ -105,7 +105,10 @@ export default function AddPostContainer() {
       });
       return;
     }
-    await setDoc(doc(firebaseDb, 'posts', 'post'), {
+    // await setDoc(doc(firebaseDb, 'posts'), {
+    //   text: isText,
+    // });
+    await addDoc(collection(firebaseDb, 'posts'), {
       text: isText,
     });
   };
