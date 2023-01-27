@@ -16,8 +16,6 @@ import {
   personCircleOutline,
   homeOutline,
 } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -46,22 +44,23 @@ import { getUserData } from './redux/slice';
 // import LoginContainer from './pages/Login/login.container';
 import SignupContainer from './pages/Signup/signup.container';
 import AddPostContainer from './pages/AddPost/addpost.container';
+import PostListContainer from './pages/Postlist/postlist.container';
 setupIonicReact();
 
 function App() {
   const auth = getAuth();
-  const [present] = useIonToast();
+  // const [present] = useIonToast();
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
 
-  const presentToast = (message: string) => {
-    present({
-      message: message,
-      duration: 1500,
-      position: 'top',
-      color: 'secondary',
-    });
-  };
+  // const presentToast = (message: string) => {
+  //   present({
+  //     message: message,
+  //     duration: 1500,
+  //     position: 'top',
+  //     color: 'secondary',
+  //   });
+  // };
 
   useEffect(() => {
     const onAuthChange = async () => {
@@ -75,7 +74,7 @@ function App() {
             displayName: user.displayName,
           };
           dispatch(getUserData(userData));
-          presentToast(`Welcome! ${user.displayName}`);
+          // presentToast(`Welcome! ${user.displayName}`);
         } else {
           // User is signed out
           const userData = {
@@ -102,8 +101,8 @@ function App() {
             <Route exact path='/signup'>
               <SignupContainer />
             </Route>
-            <Route exact path='/tab1'>
-              <Tab1 />
+            <Route exact path='/postlist'>
+              <PostListContainer />
             </Route>
             <Route exact path='/addpost'>
               <AddPostContainer />
@@ -111,22 +110,22 @@ function App() {
             <Route path='/my'>
               <MyContainer />
             </Route>
-            <Route exact path='/'>
+            {/* <Route exact path='/'>
               <Redirect to='/tab1' />
-            </Route>
+            </Route> */}
           </IonRouterOutlet>
           <IonTabBar slot='bottom'>
-            <IonTabButton tab='tab1' href='/tab1'>
+            <IonTabButton tab='postlist' href='/postlist'>
               <IonIcon icon={homeOutline} />
-              <IonLabel>Home</IonLabel>
+              {/* <IonLabel>Home</IonLabel> */}
             </IonTabButton>
             <IonTabButton tab='addpost' href='/addpost'>
               <IonIcon icon={addCircleOutline} />
-              <IonLabel>Add</IonLabel>
+              {/* <IonLabel>Add</IonLabel> */}
             </IonTabButton>
             <IonTabButton tab='my' href='/my/:userId'>
               <IonIcon icon={personCircleOutline} />
-              <IonLabel>My</IonLabel>
+              {/* <IonLabel>My</IonLabel> */}
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
