@@ -8,6 +8,7 @@ import { auth } from '../../firebase';
 import { validateEmail, validateStringLength } from '../../util/validate';
 import { useHistory, useLocation } from 'react-router-dom';
 import SignUpUI from './signup.presenter';
+import { useIonAlert } from '@ionic/react';
 
 export default function SignupContainer() {
   const history = useHistory();
@@ -22,6 +23,8 @@ export default function SignupContainer() {
   const [isUserNameValid, setIsUserNameValid] = useState<boolean>();
   const [isEmailValid, setIsEmailValid] = useState<boolean>();
   const [isPasswordlValid, setIsPasswordValid] = useState<boolean>();
+
+  const [presentAlert] = useIonAlert();
 
   const onChangeUserName = ({ detail }: { detail: { value: string } }) => {
     setUserName(detail.value);
@@ -76,7 +79,13 @@ export default function SignupContainer() {
         history.push('/tab1');
       }
     } catch (error) {
-      console.warn(error);
+      if (error instanceof Error) {
+        presentAlert({
+          header: 'Oops!',
+          message: error.message,
+          buttons: ['OK'],
+        });
+      }
     }
   };
 
@@ -87,7 +96,13 @@ export default function SignupContainer() {
       setPassword('');
       history.push('/tab1');
     } catch (error) {
-      console.warn(error);
+      if (error instanceof Error) {
+        presentAlert({
+          header: 'Oops!',
+          message: error.message,
+          buttons: ['OK'],
+        });
+      }
     }
   };
 
