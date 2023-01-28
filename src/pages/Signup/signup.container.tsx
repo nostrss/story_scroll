@@ -74,7 +74,7 @@ export default function SignupContainer() {
         setUserName('');
         setEmail('');
         setPassword('');
-        history.push('/tab1');
+        history.push('/home');
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -92,7 +92,7 @@ export default function SignupContainer() {
       await signInWithEmailAndPassword(auth, email, password);
       setEmail('');
       setPassword('');
-      history.push('/tab1');
+      history.push('/home');
     } catch (error) {
       if (error instanceof Error) {
         presentAlert({

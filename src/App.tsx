@@ -2,13 +2,11 @@ import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
-  IonLabel,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
   IonTabs,
   setupIonicReact,
-  useIonToast,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import {
@@ -45,6 +43,7 @@ import { getUserData } from './redux/slice';
 import SignupContainer from './pages/Signup/signup.container';
 import AddPostContainer from './pages/AddPost/addpost.container';
 import PostListContainer from './pages/Postlist/postlist.container';
+import PostContainer from './pages/Post/post.container';
 setupIonicReact();
 
 function App() {
@@ -87,7 +86,7 @@ function App() {
       });
     };
     onAuthChange();
-  }, []);
+  }, [auth, dispatch]);
 
   return (
     <IonApp>
@@ -95,6 +94,9 @@ function App() {
         <Header />
         <IonTabs>
           <IonRouterOutlet>
+            <Route path='/post/:postId'>
+              <PostContainer />
+            </Route>
             <Route exact path='/login'>
               <SignupContainer />
             </Route>

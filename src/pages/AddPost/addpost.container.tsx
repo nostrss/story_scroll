@@ -1,18 +1,21 @@
 import { useIonAlert } from '@ionic/react';
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { firebaseDb, storage } from '../../firebase';
 import AddPostUI from './addpost.presenter';
+import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom';
 
 export default function AddPostContainer() {
   const [isProgress, setIsProgress] = useState(0);
   const [showLoading, setShowLoading] = useState(false);
-
   const [isText, setIsText] = useState('');
   const quillRef = useRef();
-
+  const userUid = useSelector((state: any) => state.storyScroll.authData.uid);
   const [presentAlert] = useIonAlert();
+  const history = useHistory();
 
   const imageHandler = () => {
     const input = document.createElement('input');
@@ -105,12 +108,14 @@ export default function AddPostContainer() {
       });
       return;
     }
-    // await setDoc(doc(firebaseDb, 'posts'), {
-    //   text: isText,
-    // });
-    await addDoc(collection(firebaseDb, 'posts'), {
+    const postId = uuidv4();
+    await setDoc(doc(firebaseDb, 'posts', postId), {
       text: isText,
+      createdAt: new Date(),
+      author: userUid,
+      postId: postId,
     });
+    history.push(`/post/${postId}`);
   };
 
   return (
