@@ -24,7 +24,6 @@ export default function AddPostUI({
   showLoading,
   onClickSave,
 }: any) {
-  console.log(isText);
   return (
     <IonPage>
       <IonHeader>

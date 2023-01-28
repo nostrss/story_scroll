@@ -101,21 +101,21 @@ function App() {
             <Route exact path='/signup'>
               <SignupContainer />
             </Route>
-            <Route exact path='/postlist'>
+            <Route exact path='/home'>
               <PostListContainer />
             </Route>
             <Route exact path='/addpost'>
               <AddPostContainer />
             </Route>
-            <Route path='/my'>
+            <Route exact path='/my'>
               <MyContainer />
             </Route>
-            {/* <Route exact path='/'>
-              <Redirect to='/tab1' />
-            </Route> */}
+            <Route exact path='/'>
+              <Redirect to='/home' />
+            </Route>
           </IonRouterOutlet>
           <IonTabBar slot='bottom'>
-            <IonTabButton tab='postlist' href='/postlist'>
+            <IonTabButton tab='home' href='/home'>
               <IonIcon icon={homeOutline} />
               {/* <IonLabel>Home</IonLabel> */}
             </IonTabButton>
@@ -123,7 +123,7 @@ function App() {
               <IonIcon icon={addCircleOutline} />
               {/* <IonLabel>Add</IonLabel> */}
             </IonTabButton>
-            <IonTabButton tab='my' href='/my/:userId'>
+            <IonTabButton tab='my' href='/my'>
               <IonIcon icon={personCircleOutline} />
               {/* <IonLabel>My</IonLabel> */}
             </IonTabButton>

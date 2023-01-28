@@ -1,10 +1,6 @@
 export const handleHeaderTitle = (pathname: string) => {
   switch (pathname) {
-    case '/tab1':
-      return 'Home';
-    case '/tab2':
-      return 'Write';
-    case '/my/:userId':
+    case '/my':
       return 'My';
     case '/signup':
       return 'Sign Up';
@@ -12,6 +8,8 @@ export const handleHeaderTitle = (pathname: string) => {
       return 'Log In';
     case '/addpost':
       return 'Add Post';
+    case 'home':
+      return 'Home';
     default:
       return 'Home';
   }

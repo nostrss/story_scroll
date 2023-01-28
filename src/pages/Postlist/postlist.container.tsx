@@ -4,7 +4,13 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
 } from '@ionic/react';
+import { v4 as uuidv4 } from 'uuid';
 import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { firebaseDb } from '../../firebase';
@@ -16,7 +22,6 @@ export default function PostListContainer() {
     let tmpList: object[] = [];
     const querySnapshot = await getDocs(collection(firebaseDb, 'posts'));
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, ' => ', doc.data());
       tmpList = [...tmpList, doc.data()];
     });
     setIsPostList(tmpList);
@@ -29,19 +34,24 @@ export default function PostListContainer() {
     fetchPost();
   }, []);
 
-  console.log(isPostList);
-
   return (
-    <div>
-      {isPostList.map((post: any) => (
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle>Card Title</IonCardTitle>
-            <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-          </IonCardHeader>
-          <IonCardContent>{post?.text}</IonCardContent>
-        </IonCard>
-      ))}
-    </div>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle></IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        {isPostList.map((post: any) => (
+          <IonCard key={uuidv4()}>
+            <IonCardHeader>
+              <IonCardTitle>Card Title</IonCardTitle>
+              <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+            </IonCardHeader>
+            <IonCardContent>{post?.text}</IonCardContent>
+          </IonCard>
+        ))}
+      </IonContent>
+    </IonPage>
   );
 }
