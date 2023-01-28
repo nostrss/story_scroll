@@ -24,6 +24,8 @@ export default function SignupContainer() {
   const [isEmailValid, setIsEmailValid] = useState<boolean>();
   const [isPasswordlValid, setIsPasswordValid] = useState<boolean>();
 
+  const [presentAlert] = useIonAlert();
+
   const onChangeUserName = ({ detail }: { detail: { value: string } }) => {
     setUserName(detail.value);
 
