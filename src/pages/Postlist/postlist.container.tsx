@@ -1,9 +1,9 @@
 import {
   IonCard,
   IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
+  // IonCardHeader,
+  // IonCardSubtitle,
+  // IonCardTitle,
   IonContent,
   IonHeader,
   IonPage,
@@ -24,7 +24,6 @@ export default function PostListContainer() {
   const history = useHistory();
 
   const fetchPostList = async () => {
-    console.log('fetchPostList 실행됨');
     let tmpList: object[] = [];
     const querySnapshot = await getDocs(collection(firebaseDb, 'posts'));
     querySnapshot.forEach((doc) => {
@@ -46,7 +45,6 @@ export default function PostListContainer() {
 
   const handleRefresh = (event: CustomEvent<RefresherEventDetail>) => {
     setTimeout(() => {
-      // Any calls to load data go here
       fetchPostList();
       event.detail.complete();
     }, 2000);
@@ -66,11 +64,11 @@ export default function PostListContainer() {
         {isPostList.map((post: any) => (
           <IonCard key={uuidv4()} onClick={() => onClickListItem(post.postId)}>
             <img src={post?.images[0]} alt='' />
-            <IonCardHeader>
+            {/* <IonCardHeader>
               <IonCardTitle>Card Title</IonCardTitle>
               <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-            </IonCardHeader>
-            <IonCardContent>{post?.text}</IonCardContent>
+            </IonCardHeader> */}
+            <IonCardContent>{post?.plainText}</IonCardContent>
           </IonCard>
         ))}
       </IonContent>

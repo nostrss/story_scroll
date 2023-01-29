@@ -112,22 +112,17 @@ export default function AddPostContainer() {
       return;
     }
     const postId = uuidv4();
-    const root = parse(isText);
-    const images = root.querySelectorAll('img');
+
+    const textData = parse(isText).text;
+    const images = parse(isText).querySelectorAll('img');
     const imageData = images.map(
       // @ts-ignore
       (image) => image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0]
     );
-    // const imageData = images.map((image) => {
-    //   if (image.rawAttrs !== null) {
-    //     return image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0];
-    //   }
-    // });
-
-    // console.log(imageData);
 
     await setDoc(doc(firebaseDb, 'posts', postId), {
       text: isText,
+      plainText: textData,
       createdAt: new Date(),
       author: userUid,
       postId: postId,

@@ -134,8 +134,9 @@ export default function PostEditContainer() {
       return;
     }
 
-    const root = parse(isText);
-    const images = root.querySelectorAll('img');
+    const textData = parse(isText).text;
+
+    const images = parse(isText).querySelectorAll('img');
     const imageData = images.map(
       // @ts-ignore
       (image) => image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0]
@@ -144,6 +145,7 @@ export default function PostEditContainer() {
     const updateRef = doc(firebaseDb, 'posts', postId);
     await updateDoc(updateRef, {
       text: isText,
+      plainText: textData,
       images: imageData,
     });
     history.push(`/post/${postId}`);
