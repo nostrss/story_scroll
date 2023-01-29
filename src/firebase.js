@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
-// import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics } from 'firebase/analytics';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,7 +26,4 @@ export const storage = getStorage(firebaseApp);
 
 export const firebaseDb = getFirestore(firebaseApp);
 
-console.log(
-  firebaseApp.name ? 'Firebase Mode Activated!' : 'Firebase not working :('
-);
-// export const analytics = getAnalytics(app);
+export const analytics = getAnalytics(firebaseApp);
