@@ -4,11 +4,17 @@ import { handleHeaderTitle } from '../../util/handleHeaderTitle';
 
 export default function Header() {
   const { pathname } = useLocation();
+  const HIDDEN_HEADER_PATHS = ['/addpost', '/post', '/edit'];
 
-  const HIDDEN_HEADER_PATHS = ['/addpost'];
+  const isHidden = () => {
+    // const result = HIDDEN_HEADER_PATHS.includes(pathname);
+    const result =
+      HIDDEN_HEADER_PATHS.filter((path) => pathname.includes(path)).length > 0;
+    return result;
+  };
 
   return (
-    <IonHeader hidden={HIDDEN_HEADER_PATHS.includes(pathname)}>
+    <IonHeader hidden={isHidden()}>
       <IonToolbar>
         <IonTitle>{handleHeaderTitle(pathname)}</IonTitle>
       </IonToolbar>

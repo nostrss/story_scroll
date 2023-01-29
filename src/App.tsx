@@ -44,38 +44,24 @@ import SignupContainer from './pages/Signup/signup.container';
 import AddPostContainer from './pages/AddPost/addpost.container';
 import PostListContainer from './pages/Postlist/postlist.container';
 import PostContainer from './pages/Post/post.container';
+import PostEditContainer from './pages/Post/Edit/postedit.container';
 setupIonicReact();
 
 function App() {
   const auth = getAuth();
-  // const [present] = useIonToast();
   const dispatch = useDispatch();
-  // const { pathname } = useLocation();
-
-  // const presentToast = (message: string) => {
-  //   present({
-  //     message: message,
-  //     duration: 1500,
-  //     position: 'top',
-  //     color: 'secondary',
-  //   });
-  // };
 
   useEffect(() => {
     const onAuthChange = async () => {
       await onAuthStateChanged(auth, (user) => {
         if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
           const userData = {
             uid: user.uid,
             userEmail: user.email,
             displayName: user.displayName,
           };
           dispatch(getUserData(userData));
-          // presentToast(`Welcome! ${user.displayName}`);
         } else {
-          // User is signed out
           const userData = {
             uid: '',
             userEmail: '',
@@ -94,7 +80,10 @@ function App() {
         <Header />
         <IonTabs>
           <IonRouterOutlet>
-            <Route path='/post/:postId'>
+            <Route exact path='/post/edit/:postId'>
+              <PostEditContainer />
+            </Route>
+            <Route exact path='/post/:postId'>
               <PostContainer />
             </Route>
             <Route exact path='/login'>
@@ -119,17 +108,15 @@ function App() {
           <IonTabBar slot='bottom'>
             <IonTabButton tab='home' href='/home'>
               <IonIcon icon={homeOutline} />
-              {/* <IonLabel>Home</IonLabel> */}
             </IonTabButton>
             <IonTabButton tab='addpost' href='/addpost'>
               <IonIcon icon={addCircleOutline} />
-              {/* <IonLabel>Add</IonLabel> */}
             </IonTabButton>
             <IonTabButton tab='my' href='/my'>
               <IonIcon icon={personCircleOutline} />
-              {/* <IonLabel>My</IonLabel> */}
             </IonTabButton>
           </IonTabBar>
+          {/* <TabBar /> */}
         </IonTabs>
       </IonReactRouter>
     </IonApp>

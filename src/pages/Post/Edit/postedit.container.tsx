@@ -1,22 +1,44 @@
-import { useIonAlert } from '@ionic/react';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { useMemo, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { firebaseDb, storage } from '../../firebase';
-import AddPostUI from './addpost.presenter';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useHistory, useParams } from 'react-router';
+import { firebaseDb, storage } from '../../../firebase';
 import { v4 as uuidv4 } from 'uuid';
-import { useHistory } from 'react-router-dom';
+import PostEditUI from './postedit.presenter';
+import { useIonAlert } from '@ionic/react';
 import { parse } from 'node-html-parser';
 
-export default function AddPostContainer() {
+interface IUseParams {
+  postId: string;
+}
+
+export default function PostEditContainer() {
+  const { postId } = useParams<IUseParams>();
   const [isProgress, setIsProgress] = useState(0);
   const [showLoading, setShowLoading] = useState(false);
-  const [isText, setIsText] = useState('');
   const quillRef = useRef();
-  const userUid = useSelector((state: any) => state.storyScroll.authData.uid);
+  const [isText, setIsText] = useState('');
   const [presentAlert] = useIonAlert();
   const history = useHistory();
+
+  const fetchPost = async (
+    firebaseDb: any,
+    firebaseColID: string,
+    firebaseDocID: string
+  ) => {
+    const postData = await getDoc(
+      doc(firebaseDb, firebaseColID, firebaseDocID)
+    );
+    return postData.data();
+  };
+
+  useEffect(() => {
+    const fetchPostData = async () => {
+      const postData = await fetchPost(firebaseDb, 'posts', postId);
+      setIsText(postData?.text);
+    };
+    fetchPostData();
+  }, [postId]);
 
   const imageHandler = () => {
     const input = document.createElement('input');
@@ -102,7 +124,7 @@ export default function AddPostContainer() {
     'image',
   ];
 
-  const onClickSave = async () => {
+  const onClickUpdate = async () => {
     if (isText === '' || isText === '<p><br></p>') {
       presentAlert({
         header: 'No Text',
@@ -111,34 +133,24 @@ export default function AddPostContainer() {
       });
       return;
     }
-    const postId = uuidv4();
+
     const root = parse(isText);
     const images = root.querySelectorAll('img');
     const imageData = images.map(
       // @ts-ignore
       (image) => image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0]
     );
-    // const imageData = images.map((image) => {
-    //   if (image.rawAttrs !== null) {
-    //     return image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0];
-    //   }
-    // });
 
-    // console.log(imageData);
-
-    await setDoc(doc(firebaseDb, 'posts', postId), {
+    const updateRef = doc(firebaseDb, 'posts', postId);
+    await updateDoc(updateRef, {
       text: isText,
-      createdAt: new Date(),
-      author: userUid,
-      postId: postId,
       images: imageData,
     });
-    setIsText('');
     history.push(`/post/${postId}`);
   };
 
   return (
-    <AddPostUI
+    <PostEditUI
       isProgress={isProgress}
       isText={isText}
       setIsText={setIsText}
@@ -147,7 +159,7 @@ export default function AddPostContainer() {
       quillRef={quillRef}
       showLoading={showLoading}
       setShowLoading={setShowLoading}
-      onClickSave={onClickSave}
+      onClickUpdate={onClickUpdate}
     />
   );
 }

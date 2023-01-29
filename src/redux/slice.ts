@@ -9,6 +9,9 @@ export const storyScrollSlice = createSlice({
       displayName: '',
       isLogin: false,
     },
+    urlParams: {
+      param: '',
+    },
   },
 
   reducers: {
@@ -29,6 +32,9 @@ export const storyScrollSlice = createSlice({
       } else {
         state.authData.isLogin = false;
       }
+    },
+    getUrlParams: (state, data) => {
+      state.urlParams.param = data.payload;
     },
   },
 });

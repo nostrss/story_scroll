@@ -7,8 +7,11 @@ import {
   IonContent,
   IonHeader,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonTitle,
   IonToolbar,
+  RefresherEventDetail,
 } from '@ionic/react';
 import { v4 as uuidv4 } from 'uuid';
 import { collection, getDocs } from 'firebase/firestore';
@@ -21,6 +24,7 @@ export default function PostListContainer() {
   const history = useHistory();
 
   const fetchPostList = async () => {
+    console.log('fetchPostList 실행됨');
     let tmpList: object[] = [];
     const querySnapshot = await getDocs(collection(firebaseDb, 'posts'));
     querySnapshot.forEach((doc) => {
@@ -40,6 +44,14 @@ export default function PostListContainer() {
     history.push(`/post/${postId}`);
   };
 
+  const handleRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    setTimeout(() => {
+      // Any calls to load data go here
+      fetchPostList();
+      event.detail.complete();
+    }, 2000);
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -48,8 +60,12 @@ export default function PostListContainer() {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonRefresher slot='fixed' onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         {isPostList.map((post: any) => (
           <IonCard key={uuidv4()} onClick={() => onClickListItem(post.postId)}>
+            <img src={post?.images[0]} alt='' />
             <IonCardHeader>
               <IonCardTitle>Card Title</IonCardTitle>
               <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
