@@ -81,32 +81,34 @@ function App() {
         <Header />
         <IonTabs>
           <IonRouterOutlet>
-            <IonPage>
-              <Route exact path='/post/edit/:postId'>
-                <PostEditContainer />
-              </Route>
-              <Route exact path='/post/:postId'>
-                <PostContainer />
-              </Route>
-              <Route exact path='/login'>
-                <SignupContainer />
-              </Route>
-              <Route exact path='/signup'>
-                <SignupContainer />
-              </Route>
-              <Route exact path='/home'>
-                <PostListContainer />
-              </Route>
-              <Route exact path='/addpost'>
-                <AddPostContainer />
-              </Route>
-              <Route exact path='/my'>
-                <MyContainer />
-              </Route>
-              <Route exact path='/'>
-                <Redirect to='/home' />
-              </Route>
-            </IonPage>
+            <>
+              <IonPage>
+                <Route exact path='/post/edit/:postId'>
+                  <PostEditContainer />
+                </Route>
+                <Route exact path='/post/:postId'>
+                  <PostContainer />
+                </Route>
+                <Route exact path='/login'>
+                  <SignupContainer />
+                </Route>
+                <Route exact path='/signup'>
+                  <SignupContainer />
+                </Route>
+                <Route exact path='/home'>
+                  <PostListContainer />
+                </Route>
+                <Route exact path='/addpost'>
+                  <AddPostContainer />
+                </Route>
+                <Route exact path='/my'>
+                  <MyContainer />
+                </Route>
+                <Route exact path='/'>
+                  <Redirect to='/home' />
+                </Route>
+              </IonPage>
+            </>
           </IonRouterOutlet>
           <IonTabBar slot='bottom'>
             <IonTabButton tab='home' href='/home'>

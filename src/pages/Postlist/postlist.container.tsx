@@ -18,6 +18,14 @@ import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { firebaseDb } from '../../firebase';
 import { useHistory } from 'react-router-dom';
+import styled from '@emotion/styled';
+
+export const CardImage = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+`;
 
 export default function PostListContainer() {
   const [isPostList, setIsPostList] = useState<object[]>([]);
@@ -63,7 +71,7 @@ export default function PostListContainer() {
         </IonRefresher>
         {isPostList.map((post: any) => (
           <IonCard key={uuidv4()} onClick={() => onClickListItem(post.postId)}>
-            <img src={post?.images[0]} alt='' />
+            <CardImage src={post?.images[0]} alt='' />
             {/* <IonCardHeader>
               <IonCardTitle>Card Title</IonCardTitle>
               <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
