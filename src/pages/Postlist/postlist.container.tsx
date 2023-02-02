@@ -1,12 +1,8 @@
 import {
   IonCard,
   IonCardContent,
-  // IonCardHeader,
-  // IonCardSubtitle,
-  // IonCardTitle,
   IonContent,
   IonHeader,
-  IonPage,
   IonRefresher,
   IonRefresherContent,
   IonTitle,
@@ -47,6 +43,13 @@ export default function PostListContainer() {
     fetchPost();
   }, []);
 
+  // useIonViewWillEnter(() => {
+  //   const fetchPost = async () => {
+  //     await fetchPostList();
+  //   };
+  //   fetchPost();
+  // });
+
   const onClickListItem = (postId: string) => {
     history.push(`/post/${postId}`);
   };
@@ -59,7 +62,7 @@ export default function PostListContainer() {
   };
 
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle></IonTitle>
@@ -80,6 +83,6 @@ export default function PostListContainer() {
           </IonCard>
         ))}
       </IonContent>
-    </IonPage>
+    </>
   );
 }

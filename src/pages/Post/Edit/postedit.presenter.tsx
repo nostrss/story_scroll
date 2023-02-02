@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonHeader,
-  IonPage,
   IonTitle,
   IonToolbar,
   IonProgressBar,
@@ -25,7 +24,7 @@ export default function PostEditUI({
   onClickUpdate,
 }: any) {
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot='start'>
@@ -56,6 +55,6 @@ export default function PostEditUI({
           placeholder='Write something...'
         />
       </IonContent>
-    </IonPage>
+    </>
   );
 }

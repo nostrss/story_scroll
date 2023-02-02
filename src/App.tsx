@@ -82,32 +82,44 @@ function App() {
         <IonTabs>
           <IonRouterOutlet>
             <>
-              <IonPage>
-                <Route exact path='/post/edit/:postId'>
+              <Route exact path='/post/edit/:postId'>
+                <IonPage>
                   <PostEditContainer />
-                </Route>
-                <Route exact path='/post/:postId'>
+                </IonPage>
+              </Route>
+              <Route exact path='/post/:postId'>
+                <IonPage>
                   <PostContainer />
-                </Route>
-                <Route exact path='/login'>
+                </IonPage>
+              </Route>
+              <Route exact path='/login'>
+                <IonPage>
                   <SignupContainer />
-                </Route>
-                <Route exact path='/signup'>
+                </IonPage>
+              </Route>
+              <Route exact path='/signup'>
+                <IonPage>
                   <SignupContainer />
-                </Route>
-                <Route exact path='/home'>
+                </IonPage>
+              </Route>
+              <Route exact path='/home'>
+                <IonPage>
                   <PostListContainer />
-                </Route>
-                <Route exact path='/addpost'>
+                </IonPage>
+              </Route>
+              <Route exact path='/addpost'>
+                <IonPage>
                   <AddPostContainer />
-                </Route>
-                <Route exact path='/my'>
+                </IonPage>
+              </Route>
+              <Route exact path='/my'>
+                <IonPage>
                   <MyContainer />
-                </Route>
-                <Route exact path='/'>
-                  <Redirect to='/home' />
-                </Route>
-              </IonPage>
+                </IonPage>
+              </Route>
+              <Route exact path='/'>
+                <Redirect to='/home' />
+              </Route>
             </>
           </IonRouterOutlet>
           <IonTabBar slot='bottom'>

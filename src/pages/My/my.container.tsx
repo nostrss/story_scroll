@@ -33,7 +33,7 @@ export default function MyContainer() {
   };
 
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle></IonTitle>
@@ -69,6 +69,6 @@ export default function MyContainer() {
           </>
         )}
       </IonContent>
-    </IonPage>
+    </>
   );
 }

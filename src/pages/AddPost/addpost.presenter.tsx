@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonHeader,
-  IonPage,
   IonTitle,
   IonToolbar,
   IonProgressBar,
@@ -25,7 +24,7 @@ export default function AddPostUI({
   onClickSave,
 }: any) {
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot='start'>
@@ -55,6 +54,6 @@ export default function AddPostUI({
           placeholder='Write something...'
         />
       </IonContent>
-    </IonPage>
+    </>
   );
 }

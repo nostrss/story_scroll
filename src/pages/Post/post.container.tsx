@@ -5,7 +5,6 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
-  IonPage,
   IonText,
   IonTitle,
   IonToolbar,
@@ -74,7 +73,7 @@ export default function PostContainer() {
   };
 
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot='start'>
@@ -99,6 +98,6 @@ export default function PostContainer() {
           }}
         ></IonText>
       </IonContent>
-    </IonPage>
+    </>
   );
 }

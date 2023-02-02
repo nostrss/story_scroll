@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonHeader,
-  IonPage,
   IonTitle,
   IonToolbar,
   IonInput,
@@ -26,7 +25,7 @@ export default function SignUpUI({
   onSubmitAuth,
 }: any) {
   return (
-    <IonPage>
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle></IonTitle>
@@ -100,6 +99,6 @@ export default function SignUpUI({
           </IonButton>
         </form>
       </IonContent>
-    </IonPage>
+    </>
   );
 }
