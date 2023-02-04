@@ -109,6 +109,7 @@ function App() {
               </Route>
               <Route exact path='/addpost'>
                 <IonPage>
+                  {/* @ts-ignore */}
                   <AddPostContainer />
                 </IonPage>
               </Route>

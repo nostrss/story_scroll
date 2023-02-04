@@ -5,7 +5,6 @@ import {
   IonHeader,
   IonItem,
   IonLabel,
-  IonPage,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';

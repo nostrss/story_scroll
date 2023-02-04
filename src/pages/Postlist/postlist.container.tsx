@@ -3,8 +3,12 @@ import {
   IonCardContent,
   IonContent,
   IonHeader,
+  IonImg,
+  IonItem,
   IonRefresher,
   IonRefresherContent,
+  IonSkeletonText,
+  IonThumbnail,
   IonTitle,
   IonToolbar,
   RefresherEventDetail,
@@ -23,17 +27,25 @@ export const CardImage = styled.img`
   object-position: center;
 `;
 
+export const CardImageSkeleton = styled(IonSkeletonText)`
+  width: 100%;
+  height: 300px;
+`;
+
 export default function PostListContainer() {
   const [isPostList, setIsPostList] = useState<object[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   const fetchPostList = async () => {
+    setIsLoading(true);
     let tmpList: object[] = [];
     const querySnapshot = await getDocs(collection(firebaseDb, 'posts'));
     querySnapshot.forEach((doc) => {
       tmpList = [...tmpList, doc.data()];
     });
     setIsPostList(tmpList);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -42,13 +54,6 @@ export default function PostListContainer() {
     };
     fetchPost();
   }, []);
-
-  // useIonViewWillEnter(() => {
-  //   const fetchPost = async () => {
-  //     await fetchPostList();
-  //   };
-  //   fetchPost();
-  // });
 
   const onClickListItem = (postId: string) => {
     history.push(`/post/${postId}`);
@@ -72,6 +77,24 @@ export default function PostListContainer() {
         <IonRefresher slot='fixed' onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
+        {/* {isLoading && (
+          <>
+            <IonCard>
+              <IonImg style={{ width: 100, height: 300 }}>
+                <IonSkeletonText animated={true}></IonSkeletonText>
+              </IonImg>
+              <IonCardContent>
+                <IonSkeletonText animated={true}></IonSkeletonText>
+              </IonCardContent>
+            </IonCard>
+            <IonCard>
+              <CardImageSkeleton animated={true}></CardImageSkeleton>
+              <IonCardContent>
+                <IonSkeletonText animated={true}></IonSkeletonText>
+              </IonCardContent>
+            </IonCard>
+          </>
+        )} */}
         {isPostList.map((post: any) => (
           <IonCard key={uuidv4()} onClick={() => onClickListItem(post.postId)}>
             <CardImage src={post?.images[0]} alt='' />

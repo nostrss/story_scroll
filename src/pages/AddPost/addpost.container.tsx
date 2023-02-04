@@ -1,7 +1,7 @@
 import { useIonAlert } from '@ionic/react';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { firebaseDb, storage } from '../../firebase';
 import AddPostUI from './addpost.presenter';
@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { parse } from 'node-html-parser';
 
-export default function AddPostContainer() {
+function AddPostContainer() {
   const [isProgress, setIsProgress] = useState(0);
   const [showLoading, setShowLoading] = useState(false);
   const [isText, setIsText] = useState('');
@@ -17,6 +17,7 @@ export default function AddPostContainer() {
   const userUid = useSelector((state: any) => state.storyScroll.authData.uid);
   const [presentAlert] = useIonAlert();
   const history = useHistory();
+  const { isLogin } = useSelector((state: any) => state.storyScroll.authData);
 
   const imageHandler = () => {
     const input = document.createElement('input');
@@ -132,6 +133,12 @@ export default function AddPostContainer() {
     history.push(`/post/${postId}`);
   };
 
+  useEffect(() => {
+    if (!isLogin) {
+      history.push('/login');
+    }
+  }, [isLogin, history]);
+
   return (
     <AddPostUI
       isProgress={isProgress}
@@ -146,3 +153,5 @@ export default function AddPostContainer() {
     />
   );
 }
+
+export default AddPostContainer;
