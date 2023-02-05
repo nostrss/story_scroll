@@ -1,7 +1,8 @@
 ## file tree
 
-#src
-#┣ common
+```bash
+src
+┣ common
 ┣ components
 ┃ ┗ Layout
 ┃ ┃ ┗ header.tsx
@@ -38,3 +39,4 @@
 ┣ service-worker.ts
 ┣ serviceWorkerRegistration.ts
 ┗ setupTests.ts
+```
