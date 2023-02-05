@@ -135,22 +135,38 @@ function AddPostContainer() {
 
   useEffect(() => {
     if (!isLogin) {
-      history.push('/login');
+      presentAlert({
+        header: 'Please Login',
+        message: 'Move to Login Page.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              history.push('/login');
+            },
+          },
+        ],
+      });
+      return;
     }
-  }, [isLogin, history]);
+  }, []);
 
   return (
-    <AddPostUI
-      isProgress={isProgress}
-      isText={isText}
-      setIsText={setIsText}
-      modules={modules}
-      formats={formats}
-      quillRef={quillRef}
-      showLoading={showLoading}
-      setShowLoading={setShowLoading}
-      onClickSave={onClickSave}
-    />
+    <>
+      {isLogin && (
+        <AddPostUI
+          isProgress={isProgress}
+          isText={isText}
+          setIsText={setIsText}
+          modules={modules}
+          formats={formats}
+          quillRef={quillRef}
+          showLoading={showLoading}
+          setShowLoading={setShowLoading}
+          onClickSave={onClickSave}
+        />
+      )}
+    </>
   );
 }
 
