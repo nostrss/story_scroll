@@ -103,7 +103,15 @@ function AddPostContainer() {
     'image',
   ];
 
+  /**
+   * @description 게시글 저장 함수
+   * @returns
+   */
+
   const onClickSave = async () => {
+    /**
+     * @description 게시글이 비어있는지 확인
+     */
     if (isText === '' || isText === '<p><br></p>') {
       presentAlert({
         header: 'No Text',
@@ -112,22 +120,41 @@ function AddPostContainer() {
       });
       return;
     }
+
     const postId = uuidv4();
 
+    /**
+     * @description 게시글 내용을 파싱하여 tag를 제거하고 text만 추출
+     */
     const textData = parse(isText).text;
+
+    /**
+     * @description 게시글 내용을 파싱하여 이미지 url만 추출하여 배열에 저장
+     */
     const images = parse(isText).querySelectorAll('img');
     const imageData = images.map(
       // @ts-ignore
       (image) => image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0]
     );
 
+    /**
+     * img 태그를 제거
+     * br 태그를 기준으로 잘라서 배열에 저장
+     */
+    const removeImg = isText.replace(/<img[^>]*>/g, '');
+    const removeBr = removeImg.split('<br>');
+    const textList = removeBr.map((text) =>
+      parse(text).text === '' ? null : parse(text).text
+    );
+
     await setDoc(doc(firebaseDb, 'posts', postId), {
       text: isText,
       plainText: textData,
+      textList: textList,
+      images: imageData,
       createdAt: new Date(),
       author: userUid,
       postId: postId,
-      images: imageData,
     });
     setIsText('');
     history.push(`/post/${postId}`);
