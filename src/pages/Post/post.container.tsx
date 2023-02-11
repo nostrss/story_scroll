@@ -5,8 +5,12 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
   IonText,
   IonTitle,
+  IonToggle,
   IonToolbar,
   useIonActionSheet,
 } from '@ionic/react';
@@ -16,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { firebaseDb } from '../../firebase';
 import DOMPurify from 'dompurify';
+import parse from 'node-html-parser';
 
 interface IUseParams {
   postId: string;
@@ -23,6 +28,8 @@ interface IUseParams {
 
 export default function PostContainer() {
   const [isPostData, setIsPostData] = useState<DocumentData | undefined>();
+  const [scrollData, setScrollData] = useState<any>([]);
+  const [isToggle, setIsToggle] = useState<boolean>(true);
   const { postId } = useParams<IUseParams>();
   const [present] = useIonActionSheet();
   const history = useHistory();
@@ -38,6 +45,35 @@ export default function PostContainer() {
     return postData.data();
   };
 
+  const onClickToggle = () => {
+    setIsToggle(!isToggle);
+  };
+
+  /**
+   * data parsing 하기
+   * [{
+   * img : 'url'
+   * text : [text1, text2, text3]
+   * },....]
+   *
+   */
+
+  const parsingPostData = (postData: DocumentData | undefined) => {
+    if (!postData) return;
+    const markingImg = postData.replaceAll(/<img[^>]*>/g, '😍$&');
+
+    const pageData = markingImg.split('😍');
+    const data: any = [];
+
+    pageData.forEach((el: string) => {
+      const text = parse(el).text;
+      const img = parse(el).querySelector('img')?.rawAttrs;
+      (text || img) && data.push({ text, img });
+    });
+
+    setScrollData(data);
+  };
+
   useEffect(() => {
     const fetchPostData = async () => {
       const postData = await fetchPost(firebaseDb, 'posts', postId);
@@ -45,6 +81,10 @@ export default function PostContainer() {
     };
     fetchPostData();
   }, [postId]);
+
+  useEffect(() => {
+    parsingPostData(isPostData?.text);
+  }, [isPostData]);
 
   const onClickEllips = () => {
     present({
@@ -91,12 +131,26 @@ export default function PostContainer() {
           <IonTitle>Post</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonList>
+        <IonItem>
+          <IonLabel>Default Toggle</IonLabel>
+          <IonToggle
+            slot='end'
+            checked={isToggle}
+            onIonChange={onClickToggle}
+          ></IonToggle>
+        </IonItem>
+      </IonList>
       <IonContent>
-        <IonText
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(isPostData?.text),
-          }}
-        ></IonText>
+        {isToggle ? (
+          <IonText>토글 On</IonText>
+        ) : (
+          <IonText
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(isPostData?.text),
+            }}
+          ></IonText>
+        )}
       </IonContent>
     </>
   );

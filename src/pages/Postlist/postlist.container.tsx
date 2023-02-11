@@ -97,12 +97,12 @@ export default function PostListContainer() {
         )} */}
         {isPostList.map((post: any) => (
           <IonCard key={uuidv4()} onClick={() => onClickListItem(post.postId)}>
-            <CardImage src={post?.images[0]} alt='' />
+            {/* <CardImage src={post?.images[0]} alt='' /> */}
             {/* <IonCardHeader>
               <IonCardTitle>Card Title</IonCardTitle>
               <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
             </IonCardHeader> */}
-            <IonCardContent>{post?.plainText}</IonCardContent>
+            <IonCardContent>{post?.text}</IonCardContent>
           </IonCard>
         ))}
       </IonContent>
