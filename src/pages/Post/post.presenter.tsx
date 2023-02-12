@@ -43,16 +43,6 @@ export default function PostUI({
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      {/* <IonList>
-        <IonItem>
-          <IonLabel>Default Toggle</IonLabel>
-          <IonToggle
-            slot='end'
-            checked={isToggle}
-            onIonChange={onClickToggle}
-          ></IonToggle>
-        </IonItem>
-      </IonList> */}
       <IonContent>
         {isSegment === 'scroll' ? (
           <ScrollPost scrollData={scrollData} />

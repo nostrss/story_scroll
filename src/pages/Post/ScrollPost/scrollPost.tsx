@@ -1,12 +1,37 @@
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import {
+  ScrollImage,
+  ScrollImageEmpty,
+  WrapperBox,
+  WrapperPage,
+} from './scrollPost.style';
+import TextItem from './textItem/textItem';
+
 export default function ScrollPost({ scrollData }: any) {
+  const [showImgIndex, setShowImgIndex] = useState();
+
   return (
     <>
-      {scrollData.map((el: any, idx: number) => (
-        <div key={idx}>{el.img && <img src={el.img} alt='' />}</div>
+      {scrollData.map((el: any, index: number) => (
+        <WrapperPage key={uuidv4()}>
+          {el.img ? (
+            <ScrollImage src={el.img} alt='' isShow={showImgIndex === index} />
+          ) : (
+            <ScrollImageEmpty alt='' />
+          )}
+        </WrapperPage>
       ))}
-      {scrollData.map((el: any, idx: number) => (
-        <div key={idx}>{el.text && <p>{el.text}</p>}</div>
-      ))}
+      <WrapperBox>
+        {scrollData.map((el: any, index: number) => (
+          <TextItem
+            key={uuidv4()}
+            textData={el.text}
+            index={index}
+            setShowImgIndex={setShowImgIndex}
+          />
+        ))}
+      </WrapperBox>
     </>
   );
 }
