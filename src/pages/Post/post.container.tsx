@@ -1,35 +1,25 @@
-import {
-  IonBackButton,
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonText,
-  IonTitle,
-  IonToggle,
-  IonToolbar,
-  useIonActionSheet,
-} from '@ionic/react';
-import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
+import { useIonActionSheet } from '@ionic/react';
 import { deleteDoc, doc, DocumentData, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { firebaseDb } from '../../firebase';
-import DOMPurify from 'dompurify';
 import parse from 'node-html-parser';
+import PostUI from './post.presenter';
 
 interface IUseParams {
   postId: string;
 }
 
 export default function PostContainer() {
+  /**
+   * post data 원본
+   */
   const [isPostData, setIsPostData] = useState<DocumentData | undefined>();
+  /**
+   * scroll data
+   */
   const [scrollData, setScrollData] = useState<any>([]);
-  const [isToggle, setIsToggle] = useState<boolean>(true);
+  const [isSegment, setIsSegment] = useState<string>('scroll');
   const { postId } = useParams<IUseParams>();
   const [present] = useIonActionSheet();
   const history = useHistory();
@@ -45,8 +35,8 @@ export default function PostContainer() {
     return postData.data();
   };
 
-  const onClickToggle = () => {
-    setIsToggle(!isToggle);
+  const onClickSegment = (event: any) => {
+    setIsSegment(event.target.value);
   };
 
   /**
@@ -67,7 +57,10 @@ export default function PostContainer() {
 
     pageData.forEach((el: string) => {
       const text = parse(el).text;
-      const img = parse(el).querySelector('img')?.rawAttrs;
+      //@ts-ignore
+      const img = parse(el)
+        .querySelector('img')
+        ?.rawAttrs.match(/https?:\/\/[^\s"]+/)[0];
       (text || img) && data.push({ text, img });
     });
 
@@ -113,45 +106,12 @@ export default function PostContainer() {
   };
 
   return (
-    <>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot='start'>
-            <IonBackButton defaultHref='/'></IonBackButton>
-          </IonButtons>
-          <IonButtons slot='primary'>
-            <IonButton onClick={onClickEllips}>
-              <IonIcon
-                slot='icon-only'
-                ios={ellipsisHorizontal}
-                md={ellipsisVertical}
-              ></IonIcon>
-            </IonButton>
-          </IonButtons>
-          <IonTitle>Post</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonList>
-        <IonItem>
-          <IonLabel>Default Toggle</IonLabel>
-          <IonToggle
-            slot='end'
-            checked={isToggle}
-            onIonChange={onClickToggle}
-          ></IonToggle>
-        </IonItem>
-      </IonList>
-      <IonContent>
-        {isToggle ? (
-          <IonText>토글 On</IonText>
-        ) : (
-          <IonText
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(isPostData?.text),
-            }}
-          ></IonText>
-        )}
-      </IonContent>
-    </>
+    <PostUI
+      onClickEllips={onClickEllips}
+      isSegment={isSegment}
+      onClickSegment={onClickSegment}
+      isPostData={isPostData}
+      scrollData={scrollData}
+    />
   );
 }
