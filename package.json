@@ -84,6 +84,6 @@
     "@types/dompurify": "^2.4.0",
     "@types/uuid": "^9.0.0"
   },
-  "description": "An Ionic project",
+  "description": "Story Scroll",
   "homepage": "https://nostrss.github.io/story_scroll"
 }
