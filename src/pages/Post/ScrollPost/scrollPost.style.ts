@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { IonImg } from '@ionic/react';
 
 type ImageProps = {
   isShow: boolean;
@@ -17,7 +18,7 @@ export const WrapperPage = styled.div`
   border: none;
 `;
 
-export const ScrollImage = styled.img<ImageProps>`
+export const ScrollImage = styled(IonImg)<ImageProps>`
   width: 100%;
   height: auto;
   transition: 1s;

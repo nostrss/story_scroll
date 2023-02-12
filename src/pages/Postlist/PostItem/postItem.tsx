@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent } from '@ionic/react';
+import { IonCard, IonCardContent, IonImg } from '@ionic/react';
 import parse from 'node-html-parser';
 import { useHistory } from 'react-router-dom';
 import styled from '@emotion/styled';
@@ -31,7 +31,7 @@ export default function PostItem({ postData }: any) {
 
   return (
     <IonCard onClick={() => onClickListItem(postData.postId)}>
-      {imgList[0] && <img src={imgList[0]} alt='' />}
+      {imgList[0] && <IonImg src={imgList[0]} alt='' />}
       {/* <img src={imgList[0]} alt='' /> */}
       {plainText && (
         <IonCardContent>
