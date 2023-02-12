@@ -1,6 +1,6 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "story scroll",
+  "name": "story scroll",
   "icons": [
     {
       "src": "assets/icon/favicon.png",
@@ -14,7 +14,7 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://nostrss.github.io/story_scroll/home",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff"
