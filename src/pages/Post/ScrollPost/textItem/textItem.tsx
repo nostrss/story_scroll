@@ -5,7 +5,7 @@ export const TextBox = styled.p`
   width: 80%;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
-  margin-bottom: 60vh;
+  margin-bottom: 100vh;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 3px;
 `;
