@@ -46,7 +46,14 @@ import AddPostContainer from './pages/AddPost/addpost.container';
 import PostListContainer from './pages/Postlist/postlist.container';
 import PostContainer from './pages/Post/post.container';
 import PostEditContainer from './pages/Post/Edit/postedit.container';
+import styled from '@emotion/styled';
 setupIonicReact();
+
+const WrapperTabbar = styled.div`
+  @media (min-width: 960px) {
+    display: none;
+  }
+`;
 
 function App() {
   const auth = getAuth();
@@ -123,7 +130,9 @@ function App() {
               </Route>
             </>
           </IonRouterOutlet>
+
           <IonTabBar slot='bottom'>
+            {/* <WrapperTabbar> */}
             <IonTabButton tab='home' href='/home'>
               <IonIcon icon={homeOutline} />
             </IonTabButton>
@@ -133,6 +142,7 @@ function App() {
             <IonTabButton tab='my' href='/my'>
               <IonIcon icon={personCircleOutline} />
             </IonTabButton>
+            {/* </WrapperTabbar> */}
           </IonTabBar>
           {/* <TabBar /> */}
         </IonTabs>
