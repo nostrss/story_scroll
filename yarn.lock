@@ -1085,6 +1085,11 @@
   "resolved" "https://registry.npmjs.org/@capacitor/app/-/app-4.1.1.tgz"
   "version" "4.1.1"
 
+"@capacitor/camera@^4.1.4":
+  "integrity" "sha512-7f4n7PlnstYsdGyxc0Kc4hIyS6csFLOjXvffm7pJsuy9pSo+kfdOPdYgGg360QwbUAmA+Yv+J1ZW1eFIwgvWrQ=="
+  "resolved" "https://registry.npmjs.org/@capacitor/camera/-/camera-4.1.4.tgz"
+  "version" "4.1.4"
+
 "@capacitor/cli@4.6.2":
   "integrity" "sha512-035RIynwnmusv9Z/1jPDP+i7Z54ZY3qxNtf6cA69TxZlnozAqBkjPyHGuaAugxSn+4jzCobSLE3456VHhHMx1g=="
   "resolved" "https://registry.npmjs.org/@capacitor/cli/-/cli-4.6.2.tgz"
@@ -1115,6 +1120,11 @@
   dependencies:
     "tslib" "^2.1.0"
 
+"@capacitor/filesystem@^4.1.4":
+  "integrity" "sha512-ivko1RNK4hq63xhMacq8D6D97N5/SAafTsrmY/pghYrG6Cl2SEY0+IgRu7V9/VWeN3FSplyUPucjUTAFQxXN5g=="
+  "resolved" "https://registry.npmjs.org/@capacitor/filesystem/-/filesystem-4.1.4.tgz"
+  "version" "4.1.4"
+
 "@capacitor/haptics@4.1.0":
   "integrity" "sha512-gAIFy50e1VZPdokRFLkl8Y+yZYB3e4brd5yu9DRShbWbheruwU34TxtG5C1NANvq4mbXd3tMXzBi59Q5JFyTHA=="
   "resolved" "https://registry.npmjs.org/@capacitor/haptics/-/haptics-4.1.0.tgz"
@@ -1129,6 +1139,11 @@
   "integrity" "sha512-fdC7u2TeG4BqwC0LnPnhOdya31C4QKdhk/8pc5lxI9X5jyYAetMCN1kEkKa7KREw4DdzXotJt27B9BXxAza6og=="
   "resolved" "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-4.1.1.tgz"
   "version" "4.1.1"
+
+"@capacitor/preferences@^4.0.2":
+  "integrity" "sha512-HgcRkMdVHSIV3TeQLZFmCaCeMWQ25wLyZZ7dA2f8Rw81Q1Nroxsi7HxTEGNqrWKSN9PNKBJD8vChr6eB2GNtZg=="
+  "resolved" "https://registry.npmjs.org/@capacitor/preferences/-/preferences-4.0.2.tgz"
+  "version" "4.0.2"
 
 "@capacitor/status-bar@4.1.1":
   "integrity" "sha512-3wosxMD1XuIFz88+c2GdVEHSJV6u7suOeKQjyWf3zf9eFr622Sg+udZqDbC0dtTWXw97BWyCjv3r1EYJw7XnIA=="
@@ -1865,6 +1880,11 @@
     "@stencil/core" "^2.18.0"
     "ionicons" "^6.1.1"
     "tslib" "^2.1.0"
+
+"@ionic/pwa-elements@^3.1.1":
+  "integrity" "sha512-BoEX1pSrKn5dP4VQwaf8DweAmT4ynmpW+9f6oj/W1xLe54bmuXcUY07ziuZX1DLu50xHSYcO5qJ/dbYC/w6wgA=="
+  "resolved" "https://registry.npmjs.org/@ionic/pwa-elements/-/pwa-elements-3.1.1.tgz"
+  "version" "3.1.1"
 
 "@ionic/react-router@^6.0.0":
   "integrity" "sha512-alHXu2TivRtQv9rcA4sWsBpZfCWWYuGeyWM6VC2YVWWoPc17dUV+6bZ8JwDAh0t4qet2C1V4ZfyFIsmS7KsaGg=="

@@ -11,15 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { firebaseDb } from '../../firebase';
-import styled from '@emotion/styled';
 import PostItem from './PostItem/postItem';
-
-export const CardImage = styled.img`
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  object-position: center;
-`;
 
 export default function PostListContainer() {
   const [isPostList, setIsPostList] = useState<object[]>([]);
