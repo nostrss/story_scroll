@@ -33,27 +33,18 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-// import JoinContainer from './pages/Signup/signup.container';
 import Header from './components/Layout/header';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import MyContainer from './pages/My/my.container';
 import { useDispatch } from 'react-redux';
 import { getUserData } from './redux/slice';
-// import LoginContainer from './pages/Login/login.container';
 import SignupContainer from './pages/Signup/signup.container';
 import AddPostContainer from './pages/AddPost/addpost.container';
 import PostListContainer from './pages/Postlist/postlist.container';
 import PostContainer from './pages/Post/post.container';
 import PostEditContainer from './pages/Post/Edit/postedit.container';
-import styled from '@emotion/styled';
 setupIonicReact();
-
-const WrapperTabbar = styled.div`
-  @media (min-width: 960px) {
-    display: none;
-  }
-`;
 
 function App() {
   const auth = getAuth();

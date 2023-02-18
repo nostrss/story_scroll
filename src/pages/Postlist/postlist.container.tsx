@@ -1,8 +1,10 @@
 import {
   IonContent,
+  IonGrid,
   IonHeader,
   IonRefresher,
   IonRefresherContent,
+  IonRow,
   IonTitle,
   IonToolbar,
   RefresherEventDetail,
@@ -53,10 +55,14 @@ export default function PostListContainer() {
         <IonRefresher slot='fixed' onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-        {isPostList?.map((postData: any) => (
-          // @ts-ignore
-          <PostItem key={uuidv4()} postData={postData} />
-        ))}
+        <IonGrid>
+          <IonRow>
+            {isPostList?.map((postData: any) => (
+              // @ts-ignore
+              <PostItem key={uuidv4()} postData={postData} />
+            ))}
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </>
   );
