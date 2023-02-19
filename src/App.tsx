@@ -35,7 +35,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Header from './components/Layout/header';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import MyContainer from './pages/My/my.container';
 import { useDispatch } from 'react-redux';
 import { getUserData } from './redux/slice';
@@ -49,6 +49,7 @@ setupIonicReact();
 function App() {
   const auth = getAuth();
   const dispatch = useDispatch();
+  const [isTabHidden, setisTabHidden] = useState(false);
 
   useEffect(() => {
     const onAuthChange = async () => {
@@ -72,6 +73,17 @@ function App() {
     };
     onAuthChange();
   }, [auth, dispatch]);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      if (width > 720) {
+        setisTabHidden(true);
+      } else {
+        setisTabHidden(false);
+      }
+    });
+  }, []);
 
   return (
     <IonApp>
@@ -122,8 +134,7 @@ function App() {
             </>
           </IonRouterOutlet>
 
-          <IonTabBar slot='bottom'>
-            {/* <WrapperTabbar> */}
+          <IonTabBar slot='bottom' hidden={isTabHidden}>
             <IonTabButton tab='home' href='/home'>
               <IonIcon icon={homeOutline} />
             </IonTabButton>
@@ -133,9 +144,7 @@ function App() {
             <IonTabButton tab='my' href='/my'>
               <IonIcon icon={personCircleOutline} />
             </IonTabButton>
-            {/* </WrapperTabbar> */}
           </IonTabBar>
-          {/* <TabBar /> */}
         </IonTabs>
       </IonReactRouter>
     </IonApp>

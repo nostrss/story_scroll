@@ -14,6 +14,18 @@ import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { firebaseDb } from '../../firebase';
 import PostItem from './PostItem/postItem';
+import styled from '@emotion/styled';
+
+export const WrapperContents = styled(IonContent)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const WrapperGrid = styled(IonGrid)`
+  max-width: 1440px;
+`;
 
 export default function PostListContainer() {
   const [isPostList, setIsPostList] = useState<object[]>([]);
@@ -51,19 +63,19 @@ export default function PostListContainer() {
           <IonTitle></IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <WrapperContents>
         <IonRefresher slot='fixed' onIonRefresh={handleRefresh}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-        <IonGrid>
+        <WrapperGrid>
           <IonRow>
             {isPostList?.map((postData: any) => (
               // @ts-ignore
               <PostItem key={uuidv4()} postData={postData} />
             ))}
           </IonRow>
-        </IonGrid>
-      </IonContent>
+        </WrapperGrid>
+      </WrapperContents>
     </>
   );
 }

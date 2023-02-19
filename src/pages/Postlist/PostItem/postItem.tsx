@@ -38,10 +38,9 @@ export default function PostItem({ postData }: any) {
   };
 
   return (
-    <IonCol size='12' sizeXl='2' sizeLg='3' sizeMd='4' sizeSm='6' sizeXs='12'>
+    <IonCol size='12' sizeXl='3' sizeMd='4' sizeSm='6' sizeXs='12'>
       <IonCard onClick={() => onClickListItem(postData.postId)}>
         {imgList[0] && <Image src={imgList[0]} alt='' />}
-        {/* <img src={imgList[0]} alt='' /> */}
         {plainText && (
           <IonCardContent>
             <TextContents>{plainText}</TextContents>
