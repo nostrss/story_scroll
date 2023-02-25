@@ -7,7 +7,6 @@ import { firebaseDb, storage } from '../../firebase';
 import AddPostUI from './addpost.presenter';
 import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router-dom';
-// import { parse } from 'node-html-parser';
 
 function AddPostContainer() {
   const [isProgress, setIsProgress] = useState(0);
@@ -123,35 +122,8 @@ function AddPostContainer() {
 
     const postId = uuidv4();
 
-    /**
-     * @description 게시글 내용을 파싱하여 tag를 제거하고 text만 추출
-     */
-    // const textData = parse(isText).text;
-
-    /**
-     * @description 게시글 내용을 파싱하여 이미지 url만 추출하여 배열에 저장
-     */
-    // const images = parse(isText).querySelectorAll('img');
-    // const imageData = images.map(
-    //   // @ts-ignore
-    //   (image) => image.rawAttrs.match(/https?:\/\/[^\s"]+/)[0]
-    // );
-
-    /**
-     * img 태그를 제거
-     * br 태그를 기준으로 잘라서 배열에 저장
-     */
-    // const removeImg = isText.replace(/<img[^>]*>/g, '');
-    // const removeBr = removeImg.split('<br>');
-    // const textList = removeBr.map((text) =>
-    //   parse(text).text === '' ? null : parse(text).text
-    // );
-
     await setDoc(doc(firebaseDb, 'posts', postId), {
       text: isText, // 게시글 원본
-      // plainText: textData, // tag없는 텍스트
-      // textList: textList, // img가 없고 br 태그를 기준으로 잘라서 배열에 저장
-      // images: imageData, // 이미지 url만 추출하여 배열에 저장
       createdAt: new Date(), // 게시글 작성 시간
       author: userUid, // 게시글 작성자 uid
       postId: postId, // 게시글 id

@@ -7,7 +7,6 @@ export default function Header() {
   const HIDDEN_HEADER_PATHS = ['/addpost', '/post', '/edit'];
 
   const isHidden = () => {
-    // const result = HIDDEN_HEADER_PATHS.includes(pathname);
     const result =
       HIDDEN_HEADER_PATHS.filter((path) => pathname.includes(path)).length > 0;
     return result;
