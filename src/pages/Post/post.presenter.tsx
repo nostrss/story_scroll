@@ -3,6 +3,7 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonSegment,
@@ -13,6 +14,11 @@ import {
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import DOMPurify from 'dompurify';
 import ScrollPost from './ScrollPost/scrollPost';
+import styled from '@emotion/styled';
+
+export const WrapperGrid = styled(IonGrid)`
+  max-width: 1440px;
+`;
 
 export default function PostUI({
   onClickEllips,
@@ -44,15 +50,17 @@ export default function PostUI({
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {isSegment === 'scroll' ? (
-          <ScrollPost scrollData={scrollData} />
-        ) : (
-          <IonText
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(isPostData?.text),
-            }}
-          ></IonText>
-        )}
+        <WrapperGrid fixed={true}>
+          {isSegment === 'scroll' ? (
+            <ScrollPost scrollData={scrollData} />
+          ) : (
+            <IonText
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(isPostData?.text),
+              }}
+            ></IonText>
+          )}
+        </WrapperGrid>
       </IonContent>
     </>
   );
