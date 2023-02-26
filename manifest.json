@@ -23,5 +23,10 @@
   "start_url": "/story_scroll/",
   "display": "standalone",
   "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "dir": "auto",
+  "lang": "ko",
+  "orientation": "any",
+  "display_override": ["standalone"],
+  "description": "React CRUD web Page"
 }
