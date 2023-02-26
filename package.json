@@ -64,7 +64,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "ionic build",
     "deploy": "cp build/index.html build/404.html && gh-pages -d build"
   },
   "eslintConfig": {
