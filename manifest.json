@@ -3,17 +3,18 @@
   "name": "story scroll",
   "icons": [
     {
-      "src": "assets/icon/favicon.png",
+      "src": "/story_scroll/assets/icon/favicon.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "assets/icon/icon.png",
+      "src": "/story_scroll/assets/icon/icon.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
+  "scope": "/story_scroll/",
   "start_url": "/story_scroll/",
   "display": "standalone",
   "theme_color": "#ffffff",
